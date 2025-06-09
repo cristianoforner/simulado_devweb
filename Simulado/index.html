@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulado de Geografia 🌎</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f8ff;
+      text-align: justify;
+    }
+
+    .simulado {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 3px solid #2e8b57;
+      border-radius: 10px;
+      background-color: #d0f0c0;
+    }
+
+    .resultado {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 3px solid #4682b4;
+      border-radius: 10px;
+      background-color: #4682b4;
+      color: white;
+    }
+
+    .lampada {
+      max-width: 600px;
+      margin: 20px auto;
+      text-align: center;
+    }
+
+    h1 {
+      color: #2e8b57;
+      text-align: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #2e8b57;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    select {
+      padding: 5px;
+      font-size: 16px;
+      width: 100%;
+    }
+  </style>
+  <script>
+    let acertos = 0;
+    let erros = 0;
+    let total = 0;
+
+    function verifica(questao, correta) {
+      let caixa = document.getElementById(questao);
+      let resposta = caixa.options[caixa.selectedIndex].value;
+
+      if (resposta == 0) {
+        alert("Escolha uma alternativa.");
+      } else {
+        if (correta == resposta) {
+          alert("✅ Acertou!");
+          acertos++;
+        } else {
+          alert("❌ Errou!");
+          erros++;
+        }
+        total++;
+        caixa.disabled = true;
+
+        if (total == 3) {
+          finalizar();
+        }
+      }
+    }
+
+    function lampLigada() {
+      document.getElementById("lamp").src = "./img/ligada.png";
+    }
+
+    function finalizar() {
+      lampLigada();
+      let resultado = document.querySelector(".resultado");
+      resultado.innerHTML = `
+        <h2>Você Finalizou o Simulado 🌍</h2>
+        <p>✅ Acertos: <strong>${acertos}</strong></p>
+        <p>❌ Erros: <strong>${erros}</strong></p>
+        <button onclick="location.reload()">Recomeçar</button>
+      `;
+    }
+  </script>
+</head>
+<body>
+
+  <div class="simulado">
+    <h1>🌎 Simulado de Geografia</h1>
+
+    <h3>1. Qual o maior estado brasileiro?</h3>
+    <select id="q1" onchange="verifica('q1', '1')">
+      <option value="0"></option>
+      <option value="1">Amazonas</option>
+      <option value="2">São Paulo</option>
+      <option value="3">Rio de Janeiro</option>
+    </select>
+    <br><br>
+
+    <h3>2. Qual estado não faz parte do Centro-Oeste?</h3>
+    <select id="q2" onchange="verifica('q2', '2')">
+      <option value="0"></option>
+      <option value="1">Mato Grosso do Sul</option>
+      <option value="2">Tocantins</option>
+      <option value="3">Goiás</option>
+    </select>
+    <br><br>
+
+    <h3>3. Qual país não faz divisa com o Brasil?</h3>
+    <select id="q3" onchange="verifica('q3', '2')">
+      <option value="0"></option>
+      <option value="1">Argentina</option>
+      <option value="2">Chile</option>
+      <option value="3">Peru</option>
+    </select>
+    <br><br>
+  </div>
+
+  <div class="lampada">
+    <img src="./img/desligada.png" alt="Lâmpada" id="lamp" width="150">
+  </div>
+
+  <div class="resultado"></div>
+
+</body>
+</html>
